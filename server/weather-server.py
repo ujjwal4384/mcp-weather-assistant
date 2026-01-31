@@ -34,6 +34,7 @@ location: The city name and optional country code (e.g., "London,uk").
     }
 
     try:
+        print("Fetching weather data...", file=sys.stderr)
         response = requests.get(base_url, params=params)
         response.raise_for_status()  # Raises an HTTPError for bad responses (4xx or 5xx)
         data = response.json()
@@ -60,6 +61,30 @@ location: The city name and optional country code (e.g., "London,uk").
             "wind_speed_mps": f"{wind_speed} m/s"
     }
 
+
+@mcp.prompt()
+def compare_weather_prompt(location_1: str, location_2: str) -> str:
+    """
+    Generates a clear, comparative summary of the weather between two specified locations.
+    This is the best choice when a user asks to compare, contrast, or see the difference in weather between two places.
+    
+    Args:
+        location_a: The first city for comparison (e.g., "London").
+        location_b: The second city for comparison (e.g., "Paris").
+    """
+    refined_prompt = f"""
+    You are acting as a helpful weather analyst. Your goal is to provide a clear and easy-to-read comparison of the weather in two different locations for a user.
+
+    The user wants to compare the weather between "{location_1}" and "{location_2}".
+
+    To accomplish this, follow these steps:
+    1.  First, gather the necessary weather data for both "{location_1}" and "{location_1}".
+    2.  Once you have the weather data for both locations, DO NOT simply list the raw results.
+    3.  Instead, synthesize the information into a concise summary. Your final response should highlight the key differences, focusing on temperature, the general conditions (e.g., 'sunny' vs 'rainy'), and wind speed.
+    4.  Present the comparison in a structured format, like a markdown table or a clear bulleted list, to make it easy for the user to understand at a glance.
+    """
+
+    return refined_prompt
 
 if __name__ == "__main__":
         print("Server is running...")
