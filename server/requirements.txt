@@ -14,6 +14,9 @@ httpx-sse==0.4.3
 idna==3.11
 jsonschema==4.26.0
 jsonschema-specifications==2025.9.1
+langchain==1.2.7
+langchain-openai==1.1.7
+langchain-google-genai==4.2.0
 markdown-it-py==4.0.0
 mcp==1.26.0
 mdurl==0.1.2

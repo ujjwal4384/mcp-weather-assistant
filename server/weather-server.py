@@ -42,7 +42,7 @@ location: The city name and optional country code (e.g., "London,uk").
         feels_like = data["main"]["feels_like"]
         humidity = data["main"]["humidity"]
         wind_speed = data["wind"]["speed"]
-        print(data, file=sys.stderr)  # For debugging purposes
+        print("temperature:", temperature, file=sys.stderr)
     
     except Exception as e:
         if e is requests.exceptions.HTTPError:
@@ -62,4 +62,5 @@ location: The city name and optional country code (e.g., "London,uk").
 
 
 if __name__ == "__main__":
+        print("Server is running...")
         mcp.run(transport="stdio")
